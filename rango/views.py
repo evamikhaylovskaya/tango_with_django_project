@@ -9,6 +9,7 @@ from rango.forms import PageForm
 
 
 
+
 # def index(request):
 #     context_dict = {'boldmessage': 'Crunchy, creamy, cookie, candy, cupcake!'}
 #     return render(request, 'rango/index.html', context=context_dict)
@@ -25,8 +26,6 @@ def index(request):
     return render(request, 'rango/index.html', context=context_dict)
 
 
-# def index(request):
-#     return HttpResponse("Rango says hey there partner!")
 
 def about(request):
     return render(request, 'rango/about.html')
@@ -59,7 +58,7 @@ def add_category(request):
             cat = form.save(commit=True)
             print(cat, cat.slug) 
 
-            return redirect('/rango/')
+            return redirect(reverse('rango:index'))
         else:
             print(form.errors)
             
@@ -74,7 +73,7 @@ def add_page(request, category_name_slug):
 
     # You cannot add a page to a Category that does not exist... DM
     if category is None:
-        return redirect('/rango/')
+        return redirect(reverse('rango:index'))
 
     form = PageForm()
 
